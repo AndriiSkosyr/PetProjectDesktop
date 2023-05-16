@@ -1,4 +1,4 @@
-# import torch
+import torch
 from transformers import AutoTokenizer, AutoModelWithLMHead
 
 tokenizer = AutoTokenizer.from_pretrained('t5-base')
@@ -22,9 +22,9 @@ and their friendship grew stronger with each passing day.
 And even though their wishes had been granted, they realized that true happiness lies in sharing and 
 caring for others.""")
 
-inputs = tokenizer.encode("summarize: " + text, return_tensors='pt', max_length=512, trucation=True)
+inputs = tokenizer.encode("summarize: " + text, return_tensors='pt', max_length=512, truncation=True)
 
-outputs = model.generate(inputs, max_length=150, min_lenght=80, length_penalty=2, num_beams=2)
+outputs = model.generate(inputs, max_length=150, length_penalty=5., num_beams=2)
 
 summary = tokenizer.decode(outputs[0])
 
