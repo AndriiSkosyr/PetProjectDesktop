@@ -31,4 +31,4 @@ def get_transcription_whisper(audio_path, model, processor, language="english", 
   transcription = processor.batch_decode(predicted_ids, skip_special_tokens=skip_special_tokens)[0]
   return transcription
 
-print(get_transcription_whisper("test_sound.wav", whisper_model, whisper_processor))
+print(get_transcription_whisper("test_wav.wav", whisper_model, whisper_processor))
