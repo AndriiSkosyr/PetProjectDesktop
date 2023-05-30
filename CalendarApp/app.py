@@ -3,7 +3,7 @@ import datetime
 import google.auth
 from googleapiclient.discovery import build
 
-# Load credentials from file
+# Load credentials
 credentials_path = 'client_secret_338986250703-egjuthgkbhi05hj4uvump7gcop4g600t.apps.googleusercontent.com.json'
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credentials_path
 
