@@ -39,10 +39,12 @@ def main():
         service = build('calendar', 'v3', credentials=creds)
 
         # Call the Calendar API
-        now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
-        print('Getting the upcoming 10 events')
-        events_result = service.events().list(calendarId='primary', timeMin=now,
-                                              maxResults=10, singleEvents=True,
+        beginDate = (datetime.datetime.today() - datetime.timedelta(days=1)).isoformat() + 'Z'  # 'Z' indicates UTC time
+        endDate = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
+
+        events_result = service.events().list(calendarId='primary', timeMin=beginDate,
+                                              timeMax=endDate,
+                                              singleEvents=True,
                                               orderBy='startTime').execute()
         events = events_result.get('items', [])
 
