@@ -26,7 +26,10 @@ from googleapiclient.errors import HttpError
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
-PATH = 'C:/Users/Andrii Skosyr/Documents/Zoom/'
+configs = Properties()
+
+with open('app_config.properties', 'rb') as config_file:
+    configs.load(config_file)
 
 utc = pytz.UTC
 
@@ -77,10 +80,10 @@ def main():
             date_format = '%Y-%m-%d %H:%M:%S%z'
             # start_obj = parser.parse(start)
             # end_obj = parser.parse(end)
-            with os.scandir(PATH) as entries:
+            with os.scandir(configs.get("PATH").data) as entries:
                 for entry in entries:
                     print(entry.name)
-                    create_time = os.path.getctime(PATH + entry.name)
+                    create_time = os.path.getctime(configs.get("PATH").data + entry.name)
                     print('Create_time: ', create_time)
                     create_date = datetime.datetime.fromtimestamp(create_time)
                     # start_obj = start_obj.replace(tzinfo=pytz.UTC)
@@ -93,9 +96,9 @@ def main():
                     # print('Comparing: ', create_date < start_obj)
 
                     if(True):
-                        with os.scandir(PATH + entry.name + '/') as audios:
+                        with os.scandir(configs.get("PATH").data + entry.name + '/') as audios:
                             for audiofile in audios:
-                                initialAudiofileName = PATH + entry.name + '/' + audiofile.name
+                                initialAudiofileName = configs.get("PATH").data + entry.name + '/' + audiofile.name
                                 destinationAudiofileName = initialAudiofileName.replace('m4a', 'wav')
                                 formatConverter.formatting(initialAudiofileName, destinationAudiofileName)
                                 text = whisper.get_transcription_whisper(destinationAudiofileName)

@@ -8,9 +8,9 @@ with open('app_config.properties', 'rb') as config_file:
 
 
 def send_simple_message(to_name_to_email, subject, text):
-    post_response = requests.post(configs.get("REQUEST_ADDRESS"),
-        auth=("api", configs.get("API_KEY")),
-        data={"from": configs.get("API_DOMAIN"),
+    post_response = requests.post(configs.get("REQUEST_ADDRESS").data,
+        auth=("api", configs.get("API_KEY").data),
+        data={"from": configs.get("API_DOMAIN").data,
               "to": to_name_to_email,
               "subject": subject,
               "text": text})
