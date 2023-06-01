@@ -25,7 +25,7 @@ from googleapiclient.errors import HttpError
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
-PATH =  'C:/Users/Andrii Skosyr/Documents/Zoom/'
+PATH = 'C:/Users/Andrii Skosyr/Documents/Zoom/'
 
 utc = pytz.UTC
 
@@ -74,24 +74,22 @@ def main():
             start = event['start'].get('dateTime', event['start'].get('date'))
             end = event['end'].get('dateTime', event['end'].get('date'))
             date_format = '%Y-%m-%d %H:%M:%S%z'
-            #start_obj = parser.parse(start)
-            #end_obj = parser.parse(end)
+            # start_obj = parser.parse(start)
+            # end_obj = parser.parse(end)
             with os.scandir(PATH) as entries:
                 for entry in entries:
                     print(entry.name)
-                    info = entry.stat()
                     create_time = os.path.getctime(PATH + entry.name)
-                    print('Create_time: ' , create_time)
+                    print('Create_time: ', create_time)
                     create_date = datetime.datetime.fromtimestamp(create_time)
                     # start_obj = start_obj.replace(tzinfo=pytz.UTC)
                     # end_obj = end_obj.replace(tzinfo=pytz.UTC)
 
                     print('Created on:', create_date, ' StartGoogle: ', start, ' EndGoogle: ', end)
 
-                    #print('Created on:', create_date, ' StartGoogle: ', start_obj, ' EndGoogle: ', end_obj)
+                    # print('Created on:', create_date, ' StartGoogle: ', start_obj, ' EndGoogle: ', end_obj)
 
-                    #print('Comparing: ', create_date < start_obj)
-
+                    # print('Comparing: ', create_date < start_obj)
 
                     if(True):
                         with os.scandir(PATH + entry.name + '/') as audios:
@@ -103,19 +101,8 @@ def main():
                                 summary = summarizing_app.summarize_text(text)
                                 secondApp.send_simple_message('akaciand29@gmail.com', 'Summary of the meeting ' + entry.name, summary)
 
-
-
-
-
-
-
-
-
-
     except HttpError as error:
         print('An error occurred: %s' % error)
-
-
 
 
 if __name__ == '__main__':
