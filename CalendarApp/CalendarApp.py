@@ -5,7 +5,7 @@ import sys
 import formatConverter
 import whisper
 import summarizing_app
-import secondApp
+import emailApp
 
 from datetime import datetime
 from os import scandir
@@ -15,6 +15,7 @@ import os.path
 from dateutil import tz
 import pytz
 
+from jproperties import Properties
 from dateutil import parser
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -99,7 +100,7 @@ def main():
                                 formatConverter.formatting(initialAudiofileName, destinationAudiofileName)
                                 text = whisper.get_transcription_whisper(destinationAudiofileName)
                                 summary = summarizing_app.summarize_text(text)
-                                secondApp.send_simple_message('akaciand29@gmail.com', 'Summary of the meeting ' + entry.name, summary)
+                                emailApp.send_simple_message('akaciand29@gmail.com', 'Summary of the meeting ' + entry.name, summary)
 
     except HttpError as error:
         print('An error occurred: %s' % error)

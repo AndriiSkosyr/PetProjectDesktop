@@ -1,4 +1,4 @@
-import torch
+# import torch
 from transformers import AutoTokenizer, AutoModelWithLMHead
 
 
@@ -12,7 +12,7 @@ def summarize_text(text):
     inputs = tokenizer.encode("summarize: " + text, return_tensors='pt', max_length=512, truncation=True)
 
     # running tokens through the model
-    outputs = model.generate(inputs, min_length=1, max_length=150, length_penalty=5., num_beams=2)
+    outputs = model.generate(inputs, max_length=150, length_penalty=5., num_beams=2)
 
     # decoding our outputs
     summary = tokenizer.decode(outputs[0])
