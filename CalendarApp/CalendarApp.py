@@ -77,33 +77,25 @@ def main():
         for event in events:
             start = event['start'].get('dateTime', event['start'].get('date'))
             end = event['end'].get('dateTime', event['end'].get('date'))
-            date_format = '%Y-%m-%d %H:%M:%S%z'
-            # start_obj = parser.parse(start)
-            # end_obj = parser.parse(end)
+            start_obj = parser.parse(start)
+            end_obj = parser.parse(end)
+            end_obj = end_obj + datetime.timedelta(minutes=10)
             with os.scandir(configs.get("PATH").data) as entries:
                 for entry in entries:
                     print(entry.name)
                     create_time = os.path.getctime(configs.get("PATH").data + entry.name)
                     print('Create_time: ', create_time)
                     create_date = datetime.datetime.fromtimestamp(create_time)
-                    # start_obj = start_obj.replace(tzinfo=pytz.UTC)
-                    # end_obj = end_obj.replace(tzinfo=pytz.UTC)
-
-                    print('Created on:', create_date, ' StartGoogle: ', start, ' EndGoogle: ', end)
-
-                    # print('Created on:', create_date, ' StartGoogle: ', start_obj, ' EndGoogle: ', end_obj)
-
-                    # print('Comparing: ', create_date < start_obj)
-
-                    if(True):
+                    if((create_date.replace(tzinfo=None) > start_obj.replace(tzinfo=None)) & (create_date.replace(tzinfo=None) < end_obj.replace(tzinfo=None))):
                         with os.scandir(configs.get("PATH").data + entry.name + '/') as audios:
                             for audiofile in audios:
-                                initialAudiofileName = configs.get("PATH").data + entry.name + '/' + audiofile.name
-                                destinationAudiofileName = initialAudiofileName.replace('m4a', 'wav')
-                                formatConverter.formatting(initialAudiofileName, destinationAudiofileName)
-                                text = whisper.get_transcription_whisper(destinationAudiofileName)
-                                summary = summarizing_app.summarize_text(text)
-                                emailApp.send_simple_message('akaciand29@gmail.com', 'Summary of the meeting ' + entry.name, summary)
+                                if(audiofile.name.endswith("m4a")):
+                                    initialAudiofileName = configs.get("PATH").data + entry.name + '/' + audiofile.name
+                                    destinationAudiofileName = initialAudiofileName.replace('m4a', 'wav')
+                                    formatConverter.formatting(initialAudiofileName, destinationAudiofileName)
+                                    text = whisper.get_transcription_whisper(destinationAudiofileName)
+                                    summary = summarizing_app.summarize_text(text)
+                                    emailApp.send_simple_message('akaciand29@gmail.com', 'Summary of the meeting ' + entry.name, summary)
 
     except HttpError as error:
         print('An error occurred: %s' % error)
