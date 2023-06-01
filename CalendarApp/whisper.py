@@ -21,7 +21,11 @@ def load_audio(audio_path):
   return speech.squeeze()
 
 
-def get_transcription_whisper(audio_path, model, processor, language="english", skip_special_tokens=True):
+def get_transcription_whisper(audio_path):
+  model = whisper_model
+  processor = whisper_processor
+  language = 'english'
+  skip_special_tokens = True
   # resample from whatever the audio sampling rate to 16000
   speech = load_audio(audio_path)
   # get the input features
@@ -35,4 +39,4 @@ def get_transcription_whisper(audio_path, model, processor, language="english", 
   return transcription
 
 
-print(get_transcription_whisper("test_wav.wav", whisper_model, whisper_processor))
+

@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
-import summarizing_app
-
+from CalendarApp import summarizing_app
 
 app = Flask(__name__)
 

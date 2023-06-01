@@ -1,8 +1,20 @@
 from __future__ import print_function
 
+import sys
+import formatConverter
+import whisper
+import summarizing_app
+import secondApp
+
+from datetime import datetime
+from os import scandir
+import os
 import datetime
 import os.path
+from dateutil import tz
+import pytz
 
+from dateutil import parser
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -11,6 +23,10 @@ from googleapiclient.errors import HttpError
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
+
+PATH =  'C:/Users/Andrii Skosyr/Documents/Zoom/'
+
+utc = pytz.UTC
 
 
 def main():
@@ -55,10 +71,50 @@ def main():
         # Prints the start and name of the next 10 events
         for event in events:
             start = event['start'].get('dateTime', event['start'].get('date'))
-            print(start, event['summary'])
+            end = event['end'].get('dateTime', event['end'].get('date'))
+            date_format = '%Y-%m-%d %H:%M:%S%z'
+            #start_obj = parser.parse(start)
+            #end_obj = parser.parse(end)
+            with os.scandir(PATH) as entries:
+                for entry in entries:
+                    print(entry.name)
+                    info = entry.stat()
+                    create_time = os.path.getctime(PATH + entry.name)
+                    print('Create_time: ' , create_time)
+                    create_date = datetime.datetime.fromtimestamp(create_time)
+                    # start_obj = start_obj.replace(tzinfo=pytz.UTC)
+                    # end_obj = end_obj.replace(tzinfo=pytz.UTC)
+
+                    print('Created on:', create_date, ' StartGoogle: ', start, ' EndGoogle: ', end)
+
+                    #print('Created on:', create_date, ' StartGoogle: ', start_obj, ' EndGoogle: ', end_obj)
+
+                    #print('Comparing: ', create_date < start_obj)
+
+
+                    if(True):
+                        with os.scandir(PATH + entry.name + '/') as audios:
+                            for audiofile in audios:
+                                initialAudiofileName = PATH + entry.name + '/' + audiofile.name
+                                destinationAudiofileName = initialAudiofileName.replace('m4a', 'wav')
+                                formatConverter.formatting(initialAudiofileName, destinationAudiofileName)
+                                text = whisper.get_transcription_whisper(destinationAudiofileName)
+                                summary = summarizing_app.summarize_text(text)
+                                secondApp.send_simple_message('akaciand29@gmail.com', 'Summary of the meeting ' + entry.name, summary)
+
+
+
+
+
+
+
+
+
 
     except HttpError as error:
         print('An error occurred: %s' % error)
+
+
 
 
 if __name__ == '__main__':
