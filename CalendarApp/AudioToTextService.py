@@ -1,36 +1,28 @@
+import argparse
+
 from google.cloud import speech
 
-config = speech.RecognitionConfig(
-    language_code="en",
-)
-audio = speech.RecognitionAudio(
-    uri="gs://cloud-samples-data/speech/brooklyn_bridge.flac",
-)
 
-
-def speech_to_text(
-    config: speech.RecognitionConfig,
-    audio: speech.RecognitionAudio,
-) -> speech.RecognizeResponse:
+def transcribe_file(speech_file: str) -> speech.RecognizeResponse:
+    """Transcribe the given audio file."""
     client = speech.SpeechClient()
 
-    # Synchronous speech recognition request
+    with open(speech_file, "rb") as audio_file:
+        content = audio_file.read()
+
+    audio = speech.RecognitionAudio(content=content)
+    config = speech.RecognitionConfig(
+        encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
+        sample_rate_hertz=16000,
+        language_code="en-US",
+    )
+
     response = client.recognize(config=config, audio=audio)
 
-    return response
-
-
-def print_response(response: speech.RecognizeResponse):
+    # Each result is for a consecutive portion of the audio. Iterate through
+    # them to get the transcripts for the entire audio file.
     for result in response.results:
-        print_result(result)
+        # The first alternative is the most likely one for this portion.
+        print(f"Transcript: {result.alternatives[0].transcript}")
 
-
-def print_result(result: speech.SpeechRecognitionResult):
-    best_alternative = result.alternatives[0]
-    print("-" * 80)
-    print(f"language_code: {result.language_code}")
-    print(f"transcript:    {best_alternative.transcript}")
-    print(f"confidence:    {best_alternative.confidence:.0%}")
-
-response = speech_to_text(config, audio)
-print_response(response)
+    return response
