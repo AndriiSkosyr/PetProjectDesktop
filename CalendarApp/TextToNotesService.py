@@ -12,9 +12,10 @@ def summarize_text(text):
     inputs = tokenizer.encode("summarize: " + text, return_tensors='pt', max_length=512, truncation=True)
 
     # running tokens through the model
-    outputs = model.generate(inputs, max_length=150, min_length=80, length_penalty=5., num_beams=2)
+    outputs = model.generate(inputs, max_length=150, min_length=80, num_beams=2)
 
     # decoding our outputs
     summary = tokenizer.decode(outputs[0])
 
     return summary
+

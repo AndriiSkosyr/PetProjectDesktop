@@ -4,8 +4,9 @@ from __future__ import print_function
 import sys
 import FormatConverter
 import AudioToTextService
-import TextToNotesService
+import StorageService
 import EmailService
+import TextToNotesService
 
 from datetime import datetime
 from os import scandir
@@ -93,7 +94,9 @@ def main():
                                     initialAudiofileName = configs.get("PATH").data + entry.name + '/' + audiofile.name
                                     destinationAudiofileName = initialAudiofileName.replace('m4a', 'wav')
                                     FormatConverter.formatting(initialAudiofileName, destinationAudiofileName)
-                                    text = AudioToTextService
+                                    StorageService.store_files(destinationAudiofileName)
+                                    text = AudioToTextService.transcribe_gcs("gs://diploma-bucket/" + destinationAudiofileName)
+                                    print(text)
                                     summary = TextToNotesService.summarize_text(text)
                                     EmailService.send_simple_message('akaciand29@gmail.com', 'Summary of the meeting ' + entry.name, summary)
 
