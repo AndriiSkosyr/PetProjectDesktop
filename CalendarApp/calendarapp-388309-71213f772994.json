@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "calendarapp-388309",
+  "private_key_id": "71213f772994c32df8cfbc6a34c0f43963fb6fee",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDu4gbS39XxiaMT\nQ8Que3o/NHcNlq1WyIp9yanb+0QErlObGaLtoYag1ux7kuyx/YizAIvAqWXRg7u4\nwgfSL9AV+DeboBpKqA5WyO5BHeTesFksRRXNotm6Gp2V2nkdpm2OP6Ok0wGq+/+Q\nkKPojkzg4Xmr69kvjT8VcksUKAt9QvRE7ra7cbhgQ9D7Lv5Y+H+Qsx12gH8ioxeQ\ndFzZ5v4KowfP303FoyDm2ssRUpeut0E7XhcLdyaGdbjPoejkNNsMXEP6S0zxa246\n/zlNij6DqxJGOI8J7gjr7hFyjeIRXw1xrqxmEX3C7LmU0ivaNAaBk5I54TyuAgN4\nGCF1j6CZAgMBAAECggEAMWyre8LbGYvgJTK+qt1aWCxrO3EC8TMx0D/CuKR+mLdW\nzf7aYm8qkymUqSaneVYbC+ofgB+sVNJ8KwheJONGmt0N6FGSTwMBYHxXKzrbqSV0\ndb/feHnqsWIjW6dlqrhN74IEQix0KmPUJx1+BDY4+sg769Gy0G9Zb38DwKpeYi5r\nTjniRK4r21EgAz7Tn9sSKSunMe3LhGtj14i1Sd8/iwYzTb+zhBoZg8hbhPafkbKi\ns1p8wFVhDoOJ8bPeOzAks/iKilDglbhNfTB8uHEfKlKLotiQsS6zlPCsGBL5OPdE\n+pAl/N1W6EjFmtugwJ/pdlD8cPXaDsFi9wZ5dRUmGQKBgQD9aqf9LYAppl4MC6aX\nn/o+XlZ4/8KxD83Rfk6Bf/6fok3QPq08afjmuX+JxcQTxhaSYccwY7/6mt2QiSVH\n8gQux/K1thWgEXTpgQnqBHfzLW4mqElc+Sf634boPTpE83a89hEExmiOGCQp17cW\nrJxDtOwJS9i4qhdyfhsW9vpoLQKBgQDxUXESfH/1FTz1jbEIbwcvOmOop1G4K0Pn\ndNmrw2XJ4Bn3WUE5Jp6/BG/gH9tYhsK3NsHqofk+StTbRQvLjBJpJcZ7Te8uH7GV\npI75RUeUko4HUMmzHQdTnh8dfSACgJK+Mj8pIQvN6GTluVz6/LNaIDLEqCwytSao\nCjA72FXRnQKBgDWzpGXCfqZU2xkyXttCy4Tr+OcrS9a5wqPiYECRHyQ1AMhgf9WN\nn3FFXgGUJzkJgT8D+XIHsWcp6kn2xi+42aoQNR7Mt0h0apIRBkjRKZoexnjqsKFD\nK3W+aJhOYUq7TS499t1MLlvuQbucOvBTI8o1TM+rgwGfCdj5YEQ9klMBAoGBAKfF\nQkJi8ib21AG3t5uwbSNFieHIKcVLtxLkpyyGVW8LcaIImJLeKcGNmSYNn9alIhx0\nYk74uyq2pdOn5jJmOKqHi71QCnhbqn/p/0iIBOLjHQEzBneTN/PHW8SJqEZ1ExBO\nKKE0i1tlNTiNLXqFUz/WYNVeQhQi4zQymSQSHF/1AoGBAMvfP3HlvYNDSXouISEK\nymivwvy81hmgLcRax4JlRdo1Lh0C5jAEMIikxcHmx3xTOWc2uyMlRVqtFbr+ZPWQ\n431FldctnmK76Dd7398yvDH7NjxXrP2IeiuM7bMhERBvuu3PXvgKjKBC5RNQizMg\nZhv5Bns3UO5c76YuHVpG6O6i\n-----END PRIVATE KEY-----\n",
+  "client_email": "cloud-storage@calendarapp-388309.iam.gserviceaccount.com",
+  "client_id": "110831035223850878488",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cloud-storage%40calendarapp-388309.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
