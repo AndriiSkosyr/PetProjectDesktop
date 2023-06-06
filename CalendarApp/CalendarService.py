@@ -2,10 +2,10 @@ from __future__ import print_function
 
 
 import sys
-import formatConverter
-import whisper
-import summarizing_app
-import emailApp
+import FormatConverter
+import AudioToTextService
+import TextToNotesService
+import EmailService
 
 from datetime import datetime
 from os import scandir
@@ -92,10 +92,11 @@ def main():
                                 if(audiofile.name.endswith("m4a")):
                                     initialAudiofileName = configs.get("PATH").data + entry.name + '/' + audiofile.name
                                     destinationAudiofileName = initialAudiofileName.replace('m4a', 'wav')
-                                    formatConverter.formatting(initialAudiofileName, destinationAudiofileName)
-                                    text = whisper.get_transcription_whisper(destinationAudiofileName)
-                                    summary = summarizing_app.summarize_text(text)
-                                    emailApp.send_simple_message('akaciand29@gmail.com', 'Summary of the meeting ' + entry.name, summary)
+                                    FormatConverter.formatting(initialAudiofileName, destinationAudiofileName)
+                                    text = AudioToTextService
+                                    summary = TextToNotesService.summarize_text(text)
+                                    EmailService.send_simple_message('akaciand29@gmail.com', 'Summary of the meeting ' + entry.name, summary)
+
 
     except HttpError as error:
         print('An error occurred: %s' % error)

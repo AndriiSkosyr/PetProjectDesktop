@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from CalendarApp import summarizing_app
+from CalendarApp import TextToNotesService
 
 app = Flask(__name__)
 
