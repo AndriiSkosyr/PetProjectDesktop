@@ -1,12 +1,5 @@
 def transcribe_gcs(gcs_uri: str) -> str:
-    """Asynchronously transcribes the audio file specified by the gcs_uri.
 
-    Args:
-        gcs_uri: The Google Cloud Storage path to an audio file.
-
-    Returns:
-        The generated transcript from the audio file provided.
-    """
     from google.cloud import speech
 
     client = speech.SpeechClient()
