@@ -1,13 +1,11 @@
 from __future__ import print_function
-
-
+from flask import Flask
 import sys
 import FormatConverter
 import AudioToTextService
 import StorageService
 import EmailService
 import TextToNotesService
-
 from datetime import datetime
 from os import scandir
 import os
@@ -15,7 +13,6 @@ import datetime
 import os.path
 from dateutil import tz
 import pytz
-
 from jproperties import Properties
 from dateutil import parser
 from google.auth.transport.requests import Request
@@ -36,13 +33,7 @@ utc = pytz.UTC
 
 
 def main():
-    """Shows basic usage of the Google Calendar API.
-    Prints the start and name of the next 10 events on the user's calendar.
-    """
     creds = None
-    # The file token.json stores the user's access and refresh tokens, and is
-    # created automatically when the authorization flow completes for the first
-    # time.
     if os.path.exists('token.json'):
         creds = Credentials.from_authorized_user_file('token.json', SCOPES)
     # If there are no (valid) credentials available, let the user log in.
@@ -99,7 +90,6 @@ def main():
                                     print(text)
                                     summary = TextToNotesService.summarize_text(text)
                                     EmailService.send_simple_message('akaciand29@gmail.com', 'Summary of the meeting ' + entry.name, summary)
-
 
     except HttpError as error:
         print('An error occurred: %s' % error)
