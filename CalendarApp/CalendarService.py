@@ -31,8 +31,11 @@ with open('app_config.properties', 'rb') as config_file:
 
 utc = pytz.UTC
 
+app = Flask(__name__)
 
-def main():
+
+@app.route('/')
+def summarizeMeetings():
     creds = None
     if os.path.exists('token.json'):
         creds = Credentials.from_authorized_user_file('token.json', SCOPES)
@@ -63,7 +66,7 @@ def main():
 
         if not events:
             print('No upcoming events found.')
-            return
+            return "no events"
 
         # Prints the start and name of the next 10 events
         for event in events:
@@ -90,10 +93,12 @@ def main():
                                     print(text)
                                     summary = TextToNotesService.summarize_text(text)
                                     EmailService.send_simple_message('akaciand29@gmail.com', 'Summary of the meeting ' + entry.name, summary)
+                                    return "Event found, check email"
 
     except HttpError as error:
         print('An error occurred: %s' % error)
 
+app.run()
 
 if __name__ == '__main__':
-    main()
+    summarizeMeetings()
