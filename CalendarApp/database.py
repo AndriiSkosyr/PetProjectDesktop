@@ -130,7 +130,7 @@ def insert_zoom_meeting(object_name, meeting_id, meeting_sound_record, meeting_d
     session.commit()
 
 
-# functions to output data
+# functions to output data from database
 def print_clients():
     clients = session.query(Client)
     for client in clients:
