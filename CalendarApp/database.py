@@ -6,22 +6,6 @@ from sqlalchemy.orm import sessionmaker
 Base = declarative_base()
 
 
-# class Thing(Base):
-#    __tablename__ = "things"
-#
-#    tid = Column("tid", Integer, primary_key=True)
-#    description = Column("description", String)
-#    owner = Column(Integer, ForeignKey("people.ssn"))
-#
-#    def __init__(self, tid, description, owner):
-#        self.tid = tid
-#        self.description = description
-#        self.owner = owner
-#
-#   def __repr__(self):
-#        return f"({self.tid}) {self.description} owned by {self.owner}"
-
-
 class Client(Base):
     __tablename__ = "clients"
 
@@ -164,22 +148,3 @@ def print_zoom_meetings():
     meetings = session.query(ZoomMeeting)
     for meeting in meetings:
         print(meeting)
-
-
-insert_client("client1", 1, "user", "user@gmail.com", 1111)
-insert_google_calendar("calendar1", 2, "meeting1", 1)
-insert_google_calendar("calendar2", 3, "meeting2", 1)
-insert_calendar_event("event1", 4, "user", "20.03.2223", "text", "description", "zoom.com", 2)
-insert_calendar_event("event2", 5, "user", "21.03.2223", "text", "description", "zoom.com", 2)
-insert_calendar_event("event3", 6, "user", "23.03.2223", "text", "description", "zoom.com", 3)
-insert_calendar_event("event4", 7, "user", "23.03.2223", "text", "description", "zoom.com", 3)
-insert_zoom_meeting("meeting1", 8, "record.mp4", "23.03.2223", 7)
-
-
-print_clients()
-print("--//--")
-print_google_calendars()
-print("--//--")
-print_calendar_events()
-print("--//--")
-print_zoom_meetings()
