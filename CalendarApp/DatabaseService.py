@@ -88,10 +88,11 @@ class ZoomMeeting(Base):
         self.event_id = event_id
 
     def __repr__(self):
-        return f"ID: ({self.meeting_id}) Sound record: /{self.meeting_sound_record}/ Date: /{self.meeting_date}/ Event: ({self.event_id})"
+        return f"ID: ({self.meeting_id}) Sound record: /{self.meeting_sound_record}/ Date: /{self.meeting_date}/" \
+               f" Event: ({self.event_id})"
 
 
-engine = create_engine("sqlite:///mydb.db", echo=True)
+engine = create_engine("sqlite:///mydb1.db", echo=True)
 Base.metadata.create_all(bind=engine)
 
 # Start a session
@@ -148,3 +149,29 @@ def print_zoom_meetings():
     meetings = session.query(ZoomMeeting)
     for meeting in meetings:
         print(meeting)
+
+
+# functions to update data in database
+def update_client(filter_expression, parameter_to_change, new_parameter):
+    client = session.query(Client).filter(filter_expression == parameter_to_change).first()
+    filter_expression = new_parameter
+    session.commit()
+
+
+def update_google_calendar(filter_expression, parameter_to_change, new_parameter):
+    calendar = session.query(GoogleCalendar).filter(filter_expression == parameter_to_change).first()
+    filter_expression = new_parameter
+    session.commit()
+
+
+def update_calendar_event(filter_expression, parameter_to_change, new_parameter):
+    event = session.query(CalendarEvent).filter(filter_expression == parameter_to_change).first()
+    filter_expression = new_parameter
+    session.commit()
+
+
+def update_zoom_meeting(filter_expression, parameter_to_change, new_parameter):
+    meeting = session.query(ZoomMeeting).filter(filter_expression == parameter_to_change).first()
+    filter_expression = new_parameter
+    session.commit()
+
