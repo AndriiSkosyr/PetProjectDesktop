@@ -152,26 +152,91 @@ def print_zoom_meetings():
 
 
 # functions to update data in database
-def update_client(filter_expression, parameter_to_change, new_parameter):
-    client = session.query(Client).filter(filter_expression == parameter_to_change).first()
-    filter_expression = new_parameter
+def update_client(id, param_client):
+    client = session.query(Client).filter(Client.client_id == id).first()
+
+    if (param_client.client_name != None):
+        client.client_name = param_client.client_name
+
+    if (param_client.client_email != None):
+        client.client_email = param_client.client_email
+
+    if (param_client.client_password != None):
+        client.client_password = param_client.client_password
+
     session.commit()
 
 
-def update_google_calendar(filter_expression, parameter_to_change, new_parameter):
-    calendar = session.query(GoogleCalendar).filter(filter_expression == parameter_to_change).first()
-    filter_expression = new_parameter
+def update_google_calendar(id, param_calendar):
+    calendar = session.query(GoogleCalendar).filter(GoogleCalendar.calendar_id == id).first()
+
+    if(param_calendar.client_event != None):
+        calendar.client_event = param_calendar.client_event
+
+    if (param_calendar.client_id != None):
+        calendar.client_id = param_calendar.client_id
+
     session.commit()
 
 
-def update_calendar_event(filter_expression, parameter_to_change, new_parameter):
-    event = session.query(CalendarEvent).filter(filter_expression == parameter_to_change).first()
-    filter_expression = new_parameter
+def update_calendar_event(id, param_event):
+    event = session.query(CalendarEvent).filter(CalendarEvent.event_id == id).first()
+
+    if(param_event.client_name != None):
+        event.client_name = param_event.client_name
+
+    if(param_event.event_date != None):
+        event.event_date = param_event.event_date
+
+    if(param_event.summary_text != None):
+        event.summary_text = param_event.summary_text
+
+    if(param_event.description != None):
+        event.description = param_event.description
+
+    if(param_event.meeting_link != None):
+        event.meeting_link = param_event.meeting_link
+
+    if(param_event.calendar_id != None):
+        event.calendar_id = param_event.calendar_id
+
     session.commit()
 
 
-def update_zoom_meeting(filter_expression, parameter_to_change, new_parameter):
-    meeting = session.query(ZoomMeeting).filter(filter_expression == parameter_to_change).first()
-    filter_expression = new_parameter
+def update_zoom_meeting(id, param_meeting):
+    meeting = session.query(ZoomMeeting).filter(ZoomMeeting.meeting_id == id).first()
+
+    if(param_meeting.meeting_sound_record != None):
+        meeting.meeting_sound_record = param_meeting.meeting_sound_record
+
+    if(param_meeting.meeting_date != None):
+        meeting.meeting_date = param_meeting.meeting_date
+
+    if(param_meeting.event_id != None):
+        meeting.event_id = param_meeting.event_id
+
     session.commit()
 
+
+def delete_client(client_id):
+    client = session.query(Client).filter(Client.client_id == client_id).first()
+    session.delete(client)
+    session.commit()
+
+
+def delete_google_calendar(calendar_id):
+    calendar = session.query(GoogleCalendar).filter(GoogleCalendar.calendar_id == calendar_id).first()
+    session.delete(calendar)
+    session.commit()
+
+
+def delete_calendar_event(event_id):
+    event = session.query(CalendarEvent).filter(CalendarEvent.event_id == event_id).first()
+    session.delete(event)
+    session.commit()
+
+
+def delete_zoom_meeting(meeting_id):
+    meeting = session.query(ZoomMeeting).filter(ZoomMeeting.meeting_id == meeting_id).first()
+    session.delete(meeting)
+    session.commit()
