@@ -92,7 +92,7 @@ class ZoomMeeting(Base):
                f" Event: ({self.event_id})"
 
 
-engine = create_engine("sqlite:///mydb1.db", echo=True)
+engine = create_engine("sqlite:///testDB.db", echo=True)
 Base.metadata.create_all(bind=engine)
 
 # Start a session
@@ -149,6 +149,11 @@ def print_zoom_meetings():
     meetings = session.query(ZoomMeeting)
     for meeting in meetings:
         print(meeting)
+
+
+def find_client_by_name(client_name):
+    client = session.query(Client).filter(Client.client_name == client_name).first()
+    return client
 
 
 # functions to update data in database
@@ -218,6 +223,7 @@ def update_zoom_meeting(id, param_meeting):
     session.commit()
 
 
+# functions to delete data in database
 def delete_client(client_id):
     client = session.query(Client).filter(Client.client_id == client_id).first()
     session.delete(client)
